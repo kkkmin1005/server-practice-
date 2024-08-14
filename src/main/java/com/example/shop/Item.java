@@ -1,11 +1,13 @@
 package com.example.shop;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Item {
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Integer id;
 
-    String title;
+    @Column(nullable = false)
+    public String title;
+    public Integer price;
 }
