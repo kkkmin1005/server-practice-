@@ -8,9 +8,9 @@ import jakarta.persistence.Id;
 @Entity
 public class Notice {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+    public Integer id;
 
-    String title;
-    String date;
+    public String title;
+    public String date;
 
 }
