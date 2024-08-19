@@ -17,6 +17,8 @@
         <img src="https://placehold.co/300">
         <div>
             <h4 th:text="${i.title}">상품이름</h4>
+            <a th:href="@{'/detail/' + ${i.id} }">상세 페이지</a>
+            <a th:href="@{'/edit/' + ${i.id} }">수정 페이지</a>
             <p th:text="${i.price}">상품 가격</p>
         </div>
     </div>
