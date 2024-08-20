@@ -1,12 +1,8 @@
 package com.example.shop;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.Optional;
 
@@ -18,7 +14,7 @@ public class ItemController {
     private final ItemService itemService;
 
     @GetMapping("/list")
-    String list(Model model){
+    public String list(Model model){
         var result = itemRepository.findAll();
         model.addAttribute("items",result);
         return "list.html";
@@ -60,5 +56,12 @@ public class ItemController {
         }
         return "detail.html";
     }
+
+    @DeleteMapping("/delete")
+    String deleteItem(@RequestParam Integer id){
+        itemRepository.deleteById(id);
+        return "redirect:/list";
+    }
+
 
 }

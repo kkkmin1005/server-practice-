@@ -20,7 +20,26 @@
             <a th:href="@{'/detail/' + ${i.id} }">상세 페이지</a>
             <a th:href="@{'/edit/' + ${i.id} }">수정 페이지</a>
             <p th:text="${i.price}">상품 가격</p>
+            <span class="delete-btn" th:attr="data-id=${i.id}">삭제</span>
         </div>
     </div>
+
+    <script th:inline="javascript">
+        document.querySelectorAll('.delete-btn').forEach(function(span) {
+            span.addEventListener('click', function() {
+                var id = span.getAttribute('data-id');
+
+                fetch('/delete?id=' + id, {
+                    method: 'DELETE',
+                    headers: {
+                        "Content-Type": "application/json",
+                    }
+                })
+                    .then(response => response.text())
+                    .then(data => console.log(data))
+            });
+        });
+    </script>
+
 </body>
 </html>
