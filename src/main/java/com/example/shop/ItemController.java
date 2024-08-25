@@ -1,5 +1,6 @@
 package com.example.shop;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
@@ -12,6 +13,7 @@ public class ItemController {
 
     private final ItemRepository itemRepository;
     private final ItemService itemService;
+    private final S3Service s3Service;
 
     @GetMapping("/list")
     public String list(Model model){
@@ -62,6 +64,25 @@ public class ItemController {
         itemRepository.deleteById(id);
         return "redirect:/list";
     }
+
+    @GetMapping("/list/page/1")
+    public String getListPage(Model model){
+
+        var result = itemRepository.findPageBy(PageRequest.of(0,5));
+        model.addAttribute("items",result);
+        return "list.html";
+    }
+
+    @GetMapping("/presigned-url")
+    @ResponseBody
+    String getURL(@RequestParam String filename){
+
+        var result = s3Service.createPresignedUrl("test/" + filename);
+        System.out.println(result);
+        return result;
+    }
+
+
 
 
 }

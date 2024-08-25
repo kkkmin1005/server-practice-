@@ -18,5 +18,29 @@
         <button type = "submit">전송</button>
     </form>
 
+    <input type="file" onchange = "getURL(this)">
+
+    <img src="">
+
+    <script>
+        async function getURL(e){
+            let name = encodeURIComponent(e.files[0].name)
+            let result = await fetch('/presigned-url?filename=' + name)
+            result = await result.text()
+
+            let img = await fetch(result, {
+                method : 'PUT',
+                body: e.files[0]
+            })
+
+            console.log(img.url.split("?")[0])
+
+            if (img.ok){
+                document.querySelector('img').src = img.url.split("?")[0]
+            }
+
+        }
+    </script>
+
 </body>
 </html>

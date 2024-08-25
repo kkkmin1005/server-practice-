@@ -33,4 +33,9 @@ public class RegisterController {
         return "register.html";
     }
 
+    @GetMapping("/login")
+    public String login(){
+        return "login.html";
+    }
+
 }

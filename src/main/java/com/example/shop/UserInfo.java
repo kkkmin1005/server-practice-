@@ -15,4 +15,5 @@ public class UserInfo {
     public String username;
     public String password;
     public String displayName;
+
 }
